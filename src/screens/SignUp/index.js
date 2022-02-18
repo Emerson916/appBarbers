@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import UserContext from '../../contexts/UserContext';
 import {
   Container,
   InputArea,
@@ -14,9 +15,12 @@ import EmailIcon from '../../assets/email.svg';
 import LockIcon from '../../assets/lock.svg';
 import PersonIcon from '../../assets/person.svg';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-community/async-storage';
 import Api from '../../Api';
 
 const SignUp = () => {
+  // mudando o nome de 'dispatch -> userDispatch'
+  const {dispatch: userDispatch} = useContext(UserContext);
   const navigation = useNavigation();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -28,7 +32,21 @@ const SignUp = () => {
       let res = await Api.signUp(name, email, password);
       //Fazendo a verificação
       if (res.token) {
-        alert('Deu certo!!! Uhurrul');
+        //salvando o token do usuario com AsyncStorage
+        await AsyncStorage.setItem('token', res.token);
+
+        //salvando o avatar no context
+        //OBS : dados pegos do reducer
+        userDispatch({
+          type: 'setAvatar',
+          payload: {
+            avatar: res.data.avatar,
+          },
+        });
+
+        navigation.reset({
+          routes: [{name: 'Home'}],
+        });
       } else {
         alert('Erro :' + res.error);
       }
@@ -88,3 +106,6 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+// emer@gmail.com
+// pass: 1234

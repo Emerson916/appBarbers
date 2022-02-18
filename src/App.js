@@ -20,6 +20,6 @@ const App = () => {
   );
 };
 
-//Parei em 1:29:50
+//Parei em 2:03:00
 
 export default App;
