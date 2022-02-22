@@ -19,8 +19,10 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Api from '../../Api';
 
 const SignUp = () => {
+  //dispatch - para mandar informações para o context
   // mudando o nome de 'dispatch -> userDispatch'
-  const {dispatch: userDispatch} = useContext(UserContext);
+
+  const dispatch = useContext(UserContext);
   const navigation = useNavigation();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -37,7 +39,7 @@ const SignUp = () => {
 
         //salvando o avatar no context
         //OBS : dados pegos do reducer
-        userDispatch({
+        dispatch({
           type: 'setAvatar',
           payload: {
             avatar: res.data.avatar,
@@ -45,7 +47,7 @@ const SignUp = () => {
         });
 
         navigation.reset({
-          routes: [{name: 'Home'}],
+          routes: [{name: 'MainTab'}],
         });
       } else {
         alert('Erro :' + res.error);

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   Container,
   InputArea,
@@ -15,18 +15,38 @@ import LockIcon from '../../assets/lock.svg';
 import {useNavigation} from '@react-navigation/native';
 
 import Api from '../../Api';
+import AsyncStorage from '@react-native-community/async-storage';
+import UserContext from '../../contexts/UserContext';
 
 const SignIn = () => {
+  //dispatch - para mandar informações para o context
+  // mudando o nome de 'dispatch -> userDispatch'
+  const dispatch = useContext(UserContext);
   const navigation = useNavigation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSignClick = async () => {
     if (email !== '' && password !== '') {
+      //Utilizando a api para fazer o cadastro
       let res = await Api.signIn(email, password);
 
       if (res.token) {
-        alert('Deu bom!!!!!!!!!!');
+        //salvando o token do usuario com AsyncStorage
+        await AsyncStorage.setItem('token', res.token);
+
+        //salvando o avatar no context
+        //OBS : dados pegos do reducer
+        dispatch({
+          type: 'setAvatar',
+          payload: {
+            avatar: res.data.avatar,
+          },
+        });
+
+        navigation.reset({
+          routes: [{name: 'MainTab'}],
+        });
       } else {
         alert('E-mail ou Senha invalidos!');
       }
