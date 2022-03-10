@@ -1,5 +1,6 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
+
 import {LogBox} from 'react-native';
 
 LogBox.ignoreLogs([
@@ -20,6 +21,6 @@ const App = () => {
   );
 };
 
-//Parei em 2:15:00
+//Parei em 2:34:00
 
 export default App;

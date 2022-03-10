@@ -29,7 +29,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
 
   const handleSignClick = async () => {
-    if (name !== '' && email !== '' && password !== '') {
+    if (name != '' && email != '' && password != '') {
       //Utilizando a api para fazer o cadastro
       let res = await Api.signUp(name, email, password);
       //Fazendo a verificação

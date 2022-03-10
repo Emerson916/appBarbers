@@ -16,7 +16,7 @@ import {useNavigation} from '@react-navigation/native';
 
 import Api from '../../Api';
 import AsyncStorage from '@react-native-community/async-storage';
-import UserContext from '../../contexts/UserContext';
+import {UserContext} from '../../contexts/UserContext';
 
 const SignIn = () => {
   //dispatch - para mandar informações para o context
@@ -27,7 +27,7 @@ const SignIn = () => {
   const [password, setPassword] = useState('');
 
   const handleSignClick = async () => {
-    if (email !== '' && password !== '') {
+    if (email != '' && password != '') {
       //Utilizando a api para fazer o cadastro
       let res = await Api.signIn(email, password);
 

@@ -28,12 +28,12 @@ const Preload = () => {
 
           //salvando o avatar no context
           //OBS : dados pegos do reducer
-          dispatch({
-            type: 'setAvatar',
-            payload: {
-              avatar: res.data.avatar,
-            },
-          });
+          // dispatch({
+          //   type: 'setAvatar',
+          //   payload: {
+          //     avatar: res.data.avatar,
+          //   },
+          // });
 
           navigation.reset({
             routes: [{name: 'MainTab'}],
@@ -54,7 +54,7 @@ const Preload = () => {
     <Container>
       <BarberLogo width="100%" height="160" />
       <LoadingIcon size="large" color="#FFF" />
-      {/* <Button title="Teste" onPress={() => navigation.navigate('SignIn')} /> */}
+      {/* <Button title="Teste" onPress={() => navigation.navigate('MainTab')} /> */}
     </Container>
   );
 };
